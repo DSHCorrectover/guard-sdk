@@ -1,0 +1,17 @@
+{
+  "suite": "guard-sdk rule-decision vectors v0.1",
+  "commit_target": "DSHCorrectover/guard-sdk npm 0.1.0",
+  "source": "correctover guard rules engine (NB gateway fail-with-evidence kernel)",
+  "vectors": [
+    {"id":"rd-01","rule":"credentials-deny","action":"env.read","target":"AWS_SECRET_ACCESS_KEY","expect":"DENY","why":"matches *SECRET* pattern"},
+    {"id":"rd-02","rule":"credentials-deny","action":"env.read","target":"NODE_ENV","expect":"ALLOW","why":"no key-like pattern"},
+    {"id":"rd-03","rule":"credentials-deny","action":"env.read","target":"GITHUB_TOKEN","expect":"DENY","why":"matches *TOKEN*"},
+    {"id":"rd-04","rule":"dev-writable","action":"fs.write","target":"src/auth/config.ts","expect":"ALLOW","why":"under src/**"},
+    {"id":"rd-05","rule":"dev-writable","action":"fs.write","target":"/etc/hosts","expect":"DENY","why":"outside src/**"},
+    {"id":"rd-06","rule":"dev-writable","action":"fs.write","target":"src/../.ssh/authorized_keys","expect":"DENY","why":"path traversal escapes src/**"},
+    {"id":"rd-07","rule":"credentials-deny","action":"fs.read","target":".env","expect":"DENY","why":"dotfile credential store"},
+    {"id":"rd-08","rule":"dev-writable","action":"fs.delete","target":"src/generated/bundle.js","expect":"ALLOW","why":"delete within writable scope"},
+    {"id":"rd-09","rule":"credentials-deny","action":"net.call","target":"https://169.254.169.254/latest/meta-data","expect":"DENY","why":"metadata SSRF sink"},
+    {"id":"rd-10","rule":"default","action":"mcp.tool","target":"unknown__rm_rf","expect":"DENY","why":"no allow rule => fail-closed (contrast: cline/cline#15817 auto-approve default)"}
+  ]
+}

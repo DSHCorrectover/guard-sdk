@@ -1,0 +1,23 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  selfcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: install self (no deps expected)
+        run: npm install --ignore-scripts
+      - name: vector-locked self-check (install the package, then run its tests)
+        run: npm test
+      - name: vectors integrity lock
+        run: |
+          sha256sum vectors/rule-decisions.json > vectors.lock
+          cat vectors.lock
+      - name: fail on empty package (no empty-artifact rule)
+        run: node -e "const p=require('./package.json');const fs=require('fs');if(!fs.existsSync('./src/index.mjs'))process.exit(1);console.log('entry ok',p.main)"

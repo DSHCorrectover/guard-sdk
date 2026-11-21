@@ -1,0 +1,14 @@
+{
+  "name": "@correctover/guard-sdk",
+  "version": "0.1.0",
+  "description": "Security layer for AI agents and MCP tools: granular access rules + Ed25519-signed audit receipts. Fail-closed by default.",
+  "type": "module",
+  "main": "src/index.mjs",
+  "exports": { ".": "./src/index.mjs" },
+  "files": ["src", "vectors"],
+  "scripts": { "test": "node test/run.mjs" },
+  "engines": { "node": ">=18.17" },
+  "keywords": ["mcp", "agent-security", "audit", "receipts", "ed25519", "fail-closed"],
+  "license": "MIT",
+  "repository": "github:DSHCorrectover/guard-sdk"
+}
