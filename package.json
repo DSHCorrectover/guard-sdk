@@ -1,6 +1,6 @@
 {
   "name": "@correctover/guard-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Security layer for AI agents and MCP tools: granular access rules + Ed25519-signed audit receipts. Fail-closed by default.",
   "type": "module",
   "main": "src/index.mjs",
